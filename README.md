@@ -25,7 +25,7 @@ function PushOptions() {
 }
 ```
 
-3. Handle the OnInit client event at the first ListBox to record the initial order of elements and set the state of the buttons:
+3. Handle the Init client event at the first ListBox to record the initial order of elements and set the state of the buttons:
 
 ```javascript
 function OnLBAvailableInit() {
@@ -90,7 +90,7 @@ function GetAllItems(lb) {
     return items;
 }
 ```
-7. Handle the OnClick client event on all buttons and call the desired methods for moving elements:
+7. Handle the Click client event on all buttons and call the desired methods for moving elements:
 
 ```javascript
 function AddSelectedItems() {
