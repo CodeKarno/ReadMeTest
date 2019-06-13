@@ -14,7 +14,7 @@
 ### Follow these steps: 
 
 1. Add 2 ASPxListBox controls and 4 ASPxButton controls to your page.
-2. Create an array in which the initial order of elements will be written. Then, create a method to populate the array.
+2. Create an array in which the initial order of items will be written. Then, create a method to populate the array.
 
 ```javascript
 var primaryListBoxOptions = [];
@@ -25,7 +25,7 @@ function PushOptions() {
 }
 ```
 
-3. Handle the OnInit client event at the first ListBox:
+3. Handle the OnInit client event at the first ListBox to record the initial order of elements and set the state of the buttons:
 
 ```javascript
 function OnLBAvailableInit() {
@@ -33,7 +33,7 @@ function OnLBAvailableInit() {
     PushOptions();
 }
 ```
-4. Create a method that will move elements between ListBox controls:
+4. Create a method that will move items between ListBox controls, using the [InsertItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.InsertItem(index-text)) and [RemoveItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.RemoveItem(index)) methods:
 
 ```javascript
 function MoveItems(lb1, lb2, items) {
@@ -44,7 +44,7 @@ function MoveItems(lb1, lb2, items) {
     }
 }
 ```
-5. Create methods that will determine the future position of an element in the ListBox, depending on its initial position:
+5. Create methods that will calculate a position of an item in the target ListBox depending on its current position in the source ListBox:
 ```javascript
 function GetPrimaryIndex(value) {
     var options = GetPrimaryOptions();
