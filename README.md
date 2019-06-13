@@ -44,7 +44,7 @@ function MoveItems(lb1, lb2, items) {
     }
 }
 ```
-5. Create methods that will determine the future position of an element in the list box, depending on its initial position:
+5. Create methods that will determine the future position of an element in the ListBox, depending on its initial position:
 ```javascript
 function GetPrimaryIndex(value) {
     var options = GetPrimaryOptions();
@@ -70,7 +70,7 @@ function GetPrimaryOptions() {
 }
 ```
 
-6. Create 2 methods. The first method will only move the selected items, and the second will move all items.:
+6. Create methods to move the selected items and all of the items:
 ```javascript
 function MoveSelectedItems(lb1, lb2) {
     MoveItems(lb1, lb2, lb1.GetSelectedItems());
