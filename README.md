@@ -9,7 +9,7 @@
 
 <p>This example shows how to move items from the first ASPxListBox to the second ASPxListBox, while maintaining the original order of the items.</p>
 
-><b>NOTE:</b> This code will work with any ASPxListBox selection mode. (Single / Multiple / CheckColumn)
+><b>NOTE:</b> This code will work with any ASPxListBox selection mode (Single / Multiple / CheckColumn).
 
 ### Follow these steps: 
 
@@ -25,7 +25,7 @@ function PushOptions() {
 }
 ```
 
-3. Handle the Init client event at the first ListBox to record the initial order of elements and set the state of the buttons:
+3. Handle the client-side Init event of the first ListBox to record the initial order of elements and set the state of the buttons:
 
 ```javascript
 function OnLBAvailableInit() {
@@ -33,7 +33,7 @@ function OnLBAvailableInit() {
     PushOptions();
 }
 ```
-4. Create a method that will move items between ListBox controls, using the [InsertItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.InsertItem(index-text)) and [RemoveItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.RemoveItem(index)) methods:
+4. Create a method that will move items between ListBox controls using the [InsertItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.InsertItem(index-text)) and [RemoveItem](https://docs.devexpress.com/AspNet/js-ASPxClientListBox.RemoveItem(index)) methods:
 
 ```javascript
 function MoveItems(lb1, lb2, items) {
@@ -44,7 +44,7 @@ function MoveItems(lb1, lb2, items) {
     }
 }
 ```
-5. Create methods that will calculate a position of an item in the target ListBox depending on its current position in the source ListBox:
+5. Create methods that will calculate the position of an item in the target ListBox depending on its current position in the source ListBox:
 ```javascript
 function GetPrimaryIndex(value) {
     var options = GetPrimaryOptions();
@@ -90,7 +90,7 @@ function GetAllItems(lb) {
     return items;
 }
 ```
-7. Handle the Click client event on all buttons and call the desired methods for moving elements:
+7. Handle the client-side Click event of all buttons and call the required methods to move elements:
 
 ```javascript
 function AddSelectedItems() {
