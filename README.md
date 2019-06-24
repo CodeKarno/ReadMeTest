@@ -6,10 +6,7 @@
 <!-- default file list end -->
 # BootstrapGridView  - Batch Edit - How to initialize ComboBox column on a row basis.
 
-
-This example shows how to get a value from other cell from a row on the client side and bind the combo box in the same row on the server side based on this value.
-This causes problems, because if you use the built-in ComboBox column, when you rebind it to a filtered data source, this data source applies to all rows, not just one.
-To fix that, use BootstrapComboBox control in EditItemTemplate and initialize it on a row basis. A similar approach is demonstrated in [ASPxGridView - Batch editing - How to use the EditItemTemplate](https://www.devexpress.com/Support/Center/Question/Details/T618940/aspxgridview-batch-editing-how-to-use-edititemtemplate) example 
+By default, the grid binds each ComboBox column to the full data source. This can cause performance problems in some situations. To avoid them, you can use the EditItemTemplate and initialize each route, as shown in this sample. A similar approach is demonstrated in [ASPxGridView - Batch editing - How to use the EditItemTemplate](https://www.devexpress.com/Support/Center/Question/Details/T618940/aspxgridview-batch-editing-how-to-use-edititemtemplate) example 
 
 ><b>NOTE:</b> The following code is written for BootstrapGridView, but you can also use it with an ASPxGridView, if you make the appropriate changes. The general approach does not change.
 
