@@ -4,11 +4,11 @@
 * [Default.aspx](./CS/WebSite/Default.aspx) (VB: [Default.aspx](./VB/WebSite/Default.aspx))
 * [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.cs](./VB/WebSite/Default.aspx.cs))
 <!-- default file list end -->
-# BootstrapGridView  - Batch Edit - How to initialize ComboBox column on a row basis.
+# BootstrapGridView  - Batch Edit - How to initialize a ComboBox column based on a row.
 
-By default, the grid binds each ComboBox column to the full data source. This can cause performance problems in some situations. To avoid them, you can use the EditItemTemplate and initialize each route, as shown in this sample. A similar approach is demonstrated in [ASPxGridView - Batch editing - How to use the EditItemTemplate](https://www.devexpress.com/Support/Center/Question/Details/T618940/aspxgridview-batch-editing-how-to-use-edititemtemplate) example 
+By default, the grid binds each ComboBox column to the full data source. This can cause performance problems in some situations. To avoid them, you can use the EditItemTemplate and initialize each route, as shown in this sample. A similar approach is demonstrated in the [ASPxGridView - Batch editing - How to use the EditItemTemplate](https://www.devexpress.com/Support/Center/Question/Details/T618940/aspxgridview-batch-editing-how-to-use-edititemtemplate) example. 
 
-><b>NOTE:</b> The following code is written for BootstrapGridView, but you can also use it with an ASPxGridView, if you make the appropriate changes. The general approach does not change.
+><b>NOTE:</b> The following code is written for BootstrapGridView, but you can also use it with ASPxGridView, if you make corresponding changes. The general approach will not change.
 
 Since your grid will use column settings for the **View mode** and BootstrapComboBox settings for the **Edit mode**, they should be configured **separately**.
 
@@ -44,7 +44,7 @@ protected void OnItemsRequestedByFilterCondition_View(object source, ListEditIte
             ...                            
         </Fields>
 ```
-4. Add BootstrapComboBox control to the column's EditItemTemplate. This control will be used for the Edit mode. It has almost the same configuration with minor differences: it should have other data binding handlers, you need to set its ClientInstanceName for client-side access:
+4. Add the BootstrapComboBox control to the column's EditItemTemplate. This control will be used for the Edit mode. It has almost the same configuration, but with minor differences: it should have other data binding handlers. Also, you need to set its ClientInstanceName for client-side access:
 
 ```aspx
 <EditItemTemplate>
@@ -57,7 +57,7 @@ protected void OnItemsRequestedByFilterCondition_View(object source, ListEditIte
 ```
 ><b>NOTE:</b> Be sure to set the EnableCallbackMode parameter to true.
 
-5. In EditItemTemplate, both [OnItemsRequestedByFilterCondition][2] and [OnItemRequestedByValue][1] handlers should use your other field value:
+5. In EditItemTemplate, both the [OnItemsRequestedByFilterCondition][2] and [OnItemRequestedByValue][1] handlers should use a value from another field:
 ```csharp
 protected void OnItemRequestedByValue(object source, ListEditItemRequestedByValueEventArgs e) {
     ...
@@ -81,7 +81,7 @@ protected void OnItemsRequestedByFilterCondition(object source, ListEditItemsReq
 }
 ```
 
-6. Finally, the control should be initialized on the client side in the way demonstrated at [ASPxGridView - Batch Editing - A simple implementation of an EditItemTemplate](https://www.devexpress.com/Support/Center/p/T115096.aspx). The BootstrapComboBox value should be initialized with the cell value in the BatchEditStartEditing handler and the cell value and text should be set back in the BatchEditEndEditing handler:
+6. Finally, the control should be initialized on the client side in the way demonstrated at [ASPxGridView - Batch Editing - A simple implementation of an EditItemTemplate](https://www.devexpress.com/Support/Center/p/T115096.aspx). The BootstrapComboBox value should be initialized with a cell value in the BatchEditStartEditing handler and the cell value and text should be set back in the BatchEditEndEditing handler:
 ```javascript
 function OnBatchEditStartEdit(s, e) {
     var currentTypeID = grid.batchEditApi.GetCellValue(e.visibleIndex, 'TypeID');
@@ -99,7 +99,7 @@ function OnBatchEditEndEdit(s, e) {
     bsCombobox.SetValue(null);
 }
 ```
-7. Also, to transfer the value of the field to the server, you need the ASPxHiddenField control and the RefreshData method:
+7. Also, to pass a field value to the server, you need the ASPxHiddenField control and the RefreshData method:
 
 ```javascript
 function RefreshData(currentTypeID) {
