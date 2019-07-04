@@ -14,8 +14,7 @@ This example shows how to use a DataItemTemplate and EditItemTemplate together u
 1. Add an ASPxGridView control to your page and configure it as follows:
 ```aspx
 <dx:ASPxGridView ID="ASPxGridView1" runat="server" KeyFieldName="ID"
-	OnBatchUpdate="ASPxGridView1_BatchUpdate" ClientInstanceName="grid"
-	Width="350" DataSourceID="ObjectDataSource1">	
+	ClientInstanceName="grid" Width="350" DataSourceID="ObjectDataSource1">	
 	...
 	<SettingsEditing Mode="Batch">
 		<BatchEditSettings EditMode="Cell" AllowRegularDataItemTemplate="true" StartEditAction="FocusedCellClick" />
