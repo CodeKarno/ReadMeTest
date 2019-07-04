@@ -16,20 +16,20 @@ This example shows how to use a DataItemTemplate and EditItemTemplate together u
 <dx:ASPxGridView ID="ASPxGridView1" runat="server" KeyFieldName="ID"
 	OnBatchUpdate="ASPxGridView1_BatchUpdate" ClientInstanceName="grid"
 	Width="350" DataSourceID="ObjectDataSource1">
-		<Columns>
-			...
-			<dx:GridViewDataColumn FieldName="RatingValue" VisibleIndex="2">
-			<DataItemTemplate>...</DataItemTemplate>
-			<EditItemTemplate>...</EditItemTemplate>
-			</dx:GridViewDataColumn>
-			...
-		</Columns>
-		<SettingsEditing Mode="Batch">
-			<BatchEditSettings EditMode="Cell" AllowRegularDataItemTemplate="true" StartEditAction="FocusedCellClick" />
-		</SettingsEditing>
-			<ClientSideEvents BatchEditStartEditing="OnBatchEditStartEditing"
-				BatchEditEndEditing="OnBatchEditEndEditing"
-				FocusedCellChanging="OnFocusedCellChanging" Init="OnGridInit" />
+	<Columns>
+		...
+		<dx:GridViewDataColumn FieldName="RatingValue" VisibleIndex="2">
+		<DataItemTemplate>...</DataItemTemplate>
+		<EditItemTemplate>...</EditItemTemplate>
+		</dx:GridViewDataColumn>
+		...
+	</Columns>
+	<SettingsEditing Mode="Batch">
+		<BatchEditSettings EditMode="Cell" AllowRegularDataItemTemplate="true" StartEditAction="FocusedCellClick" />
+	</SettingsEditing>
+	<ClientSideEvents BatchEditStartEditing="OnBatchEditStartEditing"
+		BatchEditEndEditing="OnBatchEditEndEditing"
+		FocusedCellChanging="OnFocusedCellChanging" Init="OnGridInit" />
 </dx:ASPxGridView>
 ```
 >Note the values of the [AllowRegularDataItemTemplate][1] and [StartEditAction][2] properties.
