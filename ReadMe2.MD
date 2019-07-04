@@ -3,7 +3,7 @@
 
 * [Default.aspx](./CS/WebSite/Default.aspx) (VB: [Default.aspx](./VB/WebSite/Default.aspx))
 * [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
-* [JavaSrcipt.js](./CS/WebSite/JavaScript.js) (VB: [JavaScript.js](./VB/WebSite/JavaScript.js))
+* [BatchEditController.js](./CS/WebSite/BatchEditController.js) (VB: [BatchEditController.js](./VB/WebSite/BatchEditController.js))
 <!-- default file list end -->
 # ASPxGridView  - Batch Edit - How to use EditItemTemplate with DataItemTemplate.
 
@@ -104,15 +104,34 @@ function OnRateControlInit_EditItem(s, e) {
         return OnRatingControlKeyDown(evt, s);
     });
 }
+function OnGridViewKeyDown(evt, grid) {
+    if (typeof (event) != "undefined" && event != null)
+        evt = event;
+    if (!grid.InCallback() && NeedProcessDocumentKeyDown(evt)) {
+        if (evt.shiftKey && evt.keyCode == 9 /*Shift + tab */) {
+            setTimeout(function () {
+                grid.batchEditApi.MoveFocusBackward();
+            }, 0);
+        } else if (evt.keyCode == 9 /*Tab key*/) {
+            setTimeout(function () {
+                grid.batchEditApi.MoveFocusForward();
+            }, 0);
+        }  
+    }
+}
+function OnRatingControlKeyDown(evt, ratingControl) {
+    if (typeof (event) != "undefined" && event != null)
+        evt = event;
+    if (!ratingControl.InCallback() && NeedProcessDocumentKeyDown(evt)) {
+        if (evt.keyCode == 32 /*Space bar*/) {
+            setTimeout(function () {
+                MoveFocusToNextStar();
+            }, 0);
+        }
+    }
+}
 ```
-7. Also, to pass a field value to the server, you need the ASPxHiddenField control and the RefreshData method:
 
-```javascript
-function RefreshData(currentTypeID) {
-		hf1.Set('currentTypeID', currentTypeID);
-		bsCombobox.PerformCallback();
-	}
-```
 [1]: https://documentation.devexpress.com/AspNet/DevExpress.Web.GridBatchEditSettings.AllowRegularDataItemTemplate.property
 [2]: https://documentation.devexpress.com/AspNet/DevExpress.Web.GridBatchEditSettings.StartEditAction.property
 [3]: https://docs.devexpress.com/AspNet/js-ASPxClientGridView.BatchEditStartEditing
