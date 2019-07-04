@@ -7,14 +7,13 @@
 <!-- default file list end -->
 # ASPxGridView  - Batch Edit - How to use EditItemTemplate with DataItemTemplate.
 
-This example shows how to use a DataItemTemplate and EditItemTemplate together using ASPxRatingControl as a template.
+This example shows how to use DataItemTemplate and EditItemTemplate in Batch Edit mode together. The templates use ASPxRatingControl as content. 
 
 ### Follow these steps: 
 
-1. Add an ASPxGridView control to your page and configure it as follows:
+1. Add ASPxGridView to your page and configure it as follows:
 ```aspx
-<dx:ASPxGridView ID="ASPxGridView1" runat="server" KeyFieldName="ID"
-	ClientInstanceName="grid" Width="350" DataSourceID="ObjectDataSource1">	
+<dx:ASPxGridView ID="ASPxGridView1" runat="server" KeyFieldName="ID" ClientInstanceName="grid" DataSourceID="ObjectDataSource1">	
 	...
 	<SettingsEditing Mode="Batch">
 		<BatchEditSettings EditMode="Cell" AllowRegularDataItemTemplate="true" StartEditAction="FocusedCellClick" />
@@ -26,7 +25,7 @@ This example shows how to use a DataItemTemplate and EditItemTemplate together u
 ```
 >Note the values of the [AllowRegularDataItemTemplate][1] and [StartEditAction][2] properties.
 
-2. Add controls to the DataItemTemplate and EditItemTemplate tags. Notice that in the DataItemTemplate ClientInstanceName property of the control is dynamically assigned to each control. And for the EditItemTemplate control, this property is specified statically.
+2. Add controls to the DataItemTemplate and EditItemTemplate. Since DataItemTemplate generates multiple instances of a control, the control's ClientInstanceName need to be set dynamically. ClientInstanceName for the control in EditItemTemplate is set statically.
 
 ```aspx
  <DataItemTemplate>
@@ -38,14 +37,13 @@ This example shows how to use a DataItemTemplate and EditItemTemplate together u
 	</dx:ASPxRatingControl>
 </DataItemTemplate>
 <EditItemTemplate>
-	<dx:ASPxRatingControl ID="ratingControl" runat="server"
-		ClientInstanceName="EditItemRateControl" ItemCount="5">
+	<dx:ASPxRatingControl ID="ratingControl" runat="server" ClientInstanceName="EditItemRateControl" ItemCount="5">
 		<ClientSideEvents ItemClick="OnItemMouseClick_EditItem" Init="OnRateControlInit_EditItem" />
 	</dx:ASPxRatingControl>
 </EditItemTemplate>
 ```
 
-3. Handle the client-side [BatchEditStartEditing][3] and [OnBatchEditEndEditing][4] events to set the ASPxRatingControl value inside the EditItemTemplate when editing starts, and also to save the selected value in the grid when editing ends.
+3. Add handler for the client-side [BatchEditStartEditing][3] event to set the ASPxRatingControl value inside the EditItemTemplate when editing starts. To save the selected value in the grid when editing ends, use [OnBatchEditEndEditing][4].
 ```javascript
 function OnBatchEditStartEditing(s, e) {
     EditItemRateControl.SetValue(e.rowValues[s.GetColumnByField("RatingValue").index].value);
@@ -59,8 +57,8 @@ function OnBatchEditEndEditing(s, e) {
     SetRateControlValueByRowIndex_DataItem(e.visibleIndex, cellInfo.value);
 }
 ```
-4.Handle the client-side ItemMouseClick event for controls inside the EditItemTemplate and DataItemTemplate separatly.
-If you select the ASPxRatingControl value in the EditItemTemplate, the editing will be completed using the [batchEditApi.EndEdit][5] method. And if you select the ASPxRatingControl value in the DataItemTemplate, you should set the cell value using the [batchEditApi.SetCellValue][6] method.
+4. Add the client-side ItemMouseClick handler for controls in EditItemTemplate and DataItemTemplate separately.
+When the EditItemTemplate's ASPxRatingControl item is clicked, finish editing with the [batchEditApi.EndEdit][5] method. When the event occurs in ASPxRatingControl from DataItemTemplate, set a cell value with the [batchEditApi.SetCellValue][6] method.
 
 ```javascript
 function OnItemMouseClick_EditItem(s, e) {
@@ -70,7 +68,7 @@ function OnItemMouseClick_DataItem(s, e) {
     grid.batchEditApi.SetCellValue(currentFocusedCell.itemVisibleIndex, currentFocusedCell.column.index, s.GetValue());
 }
 ```
-5. To add navigation to the grid, you need to handle the client-side Init event of the grid to subscribe to its keydown event.
+5. Add keyboard navigation to the grid. Handle the ASPxClientGridView.Init event and subscribe to the keydown event there. Then, process different key codes in this handler: 
 ```javascript
 function OnGridInit(s, e) {
     ASPxClientUtils.AttachEventToElement(s.GetMainElement(), "keydown", function (evt) {
@@ -93,7 +91,7 @@ function OnGridViewKeyDown(evt, grid) {
     }
 }
 ```
-6. Also, to add navigation to the ASPxRatingControl, you need to handle the client-side Init event of the ASPxRatingControl to subscribe to its keydown event.
+6. Use the approach from p.5 to add keyboard support in ASPxRatingControl:
 ```javascript
 function OnRateControlInit_EditItem(s, e) {
     ASPxClientUtils.AttachEventToElement(s.GetMainElement(), "keydown", function (evt) {
